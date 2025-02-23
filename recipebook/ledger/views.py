@@ -8,7 +8,7 @@ def home(request):
     return HttpResponse(template.render())
 
 def recipelist(request):
-    return
+    return render(request, 'recipelistsite.html')
 
 def foodrecipe(request, num=1):
     if num == 1:
