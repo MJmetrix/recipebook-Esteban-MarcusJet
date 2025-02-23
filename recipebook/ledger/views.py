@@ -75,4 +75,4 @@ def foodrecipe(request, num=1):
         ]
 
         }
-    return render(request, 'foodrecipe.html', ctx )
+    return render(request, 'foodrecipetemplate.html', ctx )
