@@ -14,7 +14,7 @@ def foodrecipe(request, num=1):
     if num == 1:
 
         ctx = {
-        'name': "Recipe 1",
+        'Name': "Recipe 1",
         'ingredients': [
             {
                 "name": "tomato",
@@ -42,7 +42,7 @@ def foodrecipe(request, num=1):
     elif num == 2:
 
         ctx = {
-        'name': "Recipe 2",
+        'Name': "Recipe 2",
         'ingredients': [
             {
                 "name": "garlic",
