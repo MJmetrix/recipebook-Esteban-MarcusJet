@@ -1,78 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from .models import Ingredient, Recipe, RecipeIngredient
 
 # Create your views here.
-def home(request):
+def Home(request):
     template = loader.get_template('recipesite.html')
     return HttpResponse(template.render())
 
-def recipelist(request):
-    return render(request, 'recipelistsite.html')
+def RecipeList(request):
+    recipes = Recipe.objects.all()
+   
+    return render(request, 'recipelistsite.html', {"recipes" : recipes})
 
-def foodrecipe(request, num=1):
-    if num == 1:
+def RecipeIngredientDatabase(request, num=1):
+    recipe = Recipe.objects.get(id=num) 
+    ingredients = RecipeIngredient.objects.filter(Recipe=recipe) 
 
-        ctx = {
-        'Name': "Recipe 1",
-        'ingredients': [
-            {
-                "name": "tomato",
-                "quantity": "3pcs"
-            },
-            {
-                "name": "onion",
-                "quantity": "1pc"
-            },
-            {
-                "name": "pork",
-                "quantity": "1kg"
-            },
-            {
-                "name": "water",
-                "quantity": "1L"
-            },
-            {
-                "name": "sinigang mix",
-                "quantity": "1 packet"
-            }
-        ]
+    ctx = {
+        'Name': recipe.name,
+        'ingredients':[{'ingredient': ingredient.Ingredient.name, 'quantity': ingredient.Quantity  }
+        for ingredient in ingredients] 
     }
-
-    elif num == 2:
-
-        ctx = {
-        'Name': "Recipe 2",
-        'ingredients': [
-            {
-                "name": "garlic",
-                "quantity": "1 head"
-            },
-            {
-                "name": "onion",
-                "quantity": "1pc"
-            },
-            {
-                "name": "vinegar",
-                "quantity": "1/2cup"
-            },
-            {
-                "name": "water",
-                "quantity": "1 cup"
-            },
-            {
-                "name": "salt",
-                "quantity": "1 tablespoon"
-            },
-            {
-                "name": "whole black peppers",
-                "quantity": "1 tablespoon"
-            },
-            {
-                "name": "pork",
-                "quantity": "1 kilo"
-            }
-        ]
-
-        }
-    return render(request, 'foodrecipetemplate.html', ctx )
+    return render(request, 'foodrecipetemplate.html', ctx)

@@ -5,8 +5,10 @@
     </head>
     <body>
         <ul>
-            <li><a href="{% url 'foodrecipe' 1 %}">Recipe 1</a></li>
-            <li><a href="{% url 'foodrecipe' 2 %}">Recipe 2</a></li>
+            {% for recipe in recipes %}
+            <li><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></li>
+            {% endfor %}
+           
         </ul>
     
     </body>
