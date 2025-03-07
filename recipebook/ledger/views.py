@@ -9,7 +9,9 @@ def Home(request):
     return HttpResponse(template.render())
 
 def RecipeList(request):
-    return render(request, 'recipelistsite.html')
+    recipes = Recipe.objects.all()
+   
+    return render(request, 'recipelistsite.html', {"recipes" : recipes})
 
 def RecipeIngredientDatabase(request, num=1):
     recipe = Recipe.objects.get(id=num) 
