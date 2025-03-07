@@ -5,8 +5,21 @@ from django.urls import reverse
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
 
+    def get_absolute_url(self):
+        return reverse('ingredient_detail', args=[str(self.name)])
+
+    def __str__(self):
+        return self.name
+
 class Recipe(models.Model):
     name = models.CharField(max_length=50)
+
+    def get_absolute_url(self):
+        return reverse('recipe_detail', args=[str(self.name)])
+
+    def __str__(self):
+        return self.name
+
 
 class RecipeIngredient(models.Model):
     Quantity = models.IntegerField()
@@ -21,18 +34,7 @@ class RecipeIngredient(models.Model):
         on_delete=models.CASCADE,
         related_name='recipe'
     )
-    def __str__(self):
-        return '{} requires {}{}'.format(self.Recipe, self.Quantity, self.Ingredient)
+   
 
-    def get_absolute_url(self):
-        return reverse('recipe_detail', args=[str(self.name)])
+    
  
-    # @property
-    # def is_due(self):
-    #     return datetime.now() >= self.due_date
-
-    # class Meta:
-    #     ordering = ['due_date'] # order by due date ascending order
-    #     unique_together = ['due_date', 'name'] # Don't create a duplicate task
-    #     verbose_name = 'task'
-    #     verbose_name_plural = 'tasks'

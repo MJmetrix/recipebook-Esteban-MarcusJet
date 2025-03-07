@@ -3,8 +3,8 @@
 {% block content %}
     <h1>{{ Name }}</h1>
     <ul>
-        {% for item in ingredients %}
-        <li>{{ item.name }} - {{ item.quantity }}</li>
+        {% for recipe in ingredients %}
+        <li>{{ recipe.name }} - {{ recipe.quantity }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

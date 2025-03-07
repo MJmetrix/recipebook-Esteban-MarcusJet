@@ -1,16 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from .models import Ingredient, Recipe, RecipeIngredient
 
 # Create your views here.
-def home(request):
+def Home(request):
     template = loader.get_template('recipesite.html')
     return HttpResponse(template.render())
 
-def recipelist(request):
+def RecipeList(request):
     return render(request, 'recipelistsite.html')
 
-def foodrecipe(request, num=1):
+def FoodRecipe(request, num=1):
     if num == 1:
 
         ctx = {
@@ -75,4 +76,16 @@ def foodrecipe(request, num=1):
         ]
 
         }
+
+def RecipeIngredientDatabase(request, num=1):
+    recipe = Recipe.objects.get(pk = num)
+    ingredients = RecipeIngredient.objects.filter(recipe__name = recipe.name)
+
+    ctx = {
+        'Name' : recipe.name,
+        'ingredients' : [{'name': item.ingredient.name, 'quantity': item.quantity.name}
+        for item in ingredients]
+    }
+
     return render(request, 'foodrecipetemplate.html', ctx )
+
