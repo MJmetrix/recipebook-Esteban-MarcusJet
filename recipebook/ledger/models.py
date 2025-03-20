@@ -1,6 +1,8 @@
 from datetime import datetime
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
@@ -21,15 +23,19 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    Quantity = models.CharField(max_length=100)
-    Recipe = models.ForeignKey(
+    quantity = models.CharField(max_length=100)
+    recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name='ingredients'
     )
 
-    Ingredient = models.ForeignKey(
+    ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
         related_name='recipe'
     )
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    name = models.CharField(max_length=50)

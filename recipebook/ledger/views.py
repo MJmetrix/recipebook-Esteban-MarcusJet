@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Ingredient, Recipe, RecipeIngredient
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
 
 # Create your views here.
 def Home(request):
@@ -15,11 +17,11 @@ def RecipeList(request):
 
 def RecipeIngredientDatabase(request, num=1):
     recipe = Recipe.objects.get(id=num) 
-    ingredients = RecipeIngredient.objects.filter(Recipe=recipe) 
+    ingredients = RecipeIngredient.objects.filter(recipe=recipe) 
 
     ctx = {
         'Name': recipe.name,
-        'ingredients':[{'ingredient': ingredient.Ingredient.name, 'quantity': ingredient.Quantity  }
+        'ingredients':[{'ingredient': ingredient.ingredient.name, 'quantity': ingredient.quantity  }
         for ingredient in ingredients] 
     }
     
