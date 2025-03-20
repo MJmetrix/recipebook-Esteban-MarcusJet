@@ -1,7 +1,6 @@
 {% extends 'foodrecipe.html' %}
-{% block title %}Food Recipe List{% endblock %}
 {% block content %}
-    <h1>{{ Name }}</h1>
+    <h3>{{ Name }} by {{ author }}</h3>
     <ul>
         {% for ingredient in ingredients %}
             <li>{{ ingredient.ingredient }} - {{ ingredient.quantity }}</li>

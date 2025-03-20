@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Ingredient, Recipe, RecipeIngredient
+from .models import *
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -14,6 +15,7 @@ def RecipeList(request):
    
     return render(request, 'recipelistsite.html', {"recipes" : recipes})
 
+@login_required
 def RecipeIngredientDatabase(request, num=1):
     recipe = Recipe.objects.get(id=num) 
     ingredients = RecipeIngredient.objects.filter(recipe=recipe) 
