@@ -7,19 +7,38 @@ from django.contrib.auth.models import User
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
     def get_absolute_url(self):
-        return reverse('recipeList', args=[str(self.name)])
+        return reverse('recipe_list', args=[str(self.name)])
+
+    def __str__(self):
+        return self.name
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    name = models.CharField(max_length=50)
+    bio = models.TextField(max_length=255, blank=True)
 
     def __str__(self):
         return self.name
 
 class Recipe(models.Model):
     name = models.CharField(max_length=50)
-    def get_absolute_url(self):
-        return reverse('foodRecipe', args=[str(self.id)])
-        
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        default=1
+    )
 
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('food_recipe', args=[str(self.id)])
+        
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['created_on']
 
 
 class RecipeIngredient(models.Model):
@@ -36,6 +55,4 @@ class RecipeIngredient(models.Model):
         related_name='recipe'
     )
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE) 
-    name = models.CharField(max_length=50)
+

@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Ingredient, Recipe, RecipeIngredient
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
 # Create your views here.
@@ -21,6 +20,7 @@ def RecipeIngredientDatabase(request, num=1):
 
     ctx = {
         'Name': recipe.name,
+        'author': recipe.author.name,
         'ingredients':[{'ingredient': ingredient.ingredient.name, 'quantity': ingredient.quantity  }
         for ingredient in ingredients] 
     }

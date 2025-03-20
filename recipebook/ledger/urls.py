@@ -4,6 +4,6 @@ from django.shortcuts import redirect
 
 urlpatterns = [
     path("", lambda request: redirect("recipeList")),
-    path("recipes/list/", RecipeList, name="recipeList"),
-    path("recipe/<int:num>", RecipeIngredientDatabase, name="foodRecipe")
+    path("recipes/list/", RecipeList, name="recipe_list"),
+    path("recipe/<int:num>", RecipeIngredientDatabase, name="food_recipe")
 ]
