@@ -22,4 +22,5 @@ def RecipeIngredientDatabase(request, num=1):
         'ingredients':[{'ingredient': ingredient.Ingredient.name, 'quantity': ingredient.Quantity  }
         for ingredient in ingredients] 
     }
+    
     return render(request, 'foodrecipetemplate.html', ctx)

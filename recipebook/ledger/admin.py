@@ -16,6 +16,7 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
     model = RecipeIngredient
     
     list_display = ('Recipe', 'Ingredient', 'Quantity',)
+    search_fields = ('Recipe__name',)
 
 
 admin.site.register(Recipe, RecipeAdmin)
