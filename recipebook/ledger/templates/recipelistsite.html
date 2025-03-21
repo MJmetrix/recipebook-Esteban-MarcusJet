@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<htm1>
-    <head>
-        <header>Recipe Book</header>
-    </head>
-    <body>
-        <ul>
-            {% for recipe in recipes %}
-            <li><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></li>
-            {% endfor %}
-           
-        </ul>
+{% extends 'foodrecipe.html' %}
+{% block title %}
+Recipe list
+{% endblock %}
+{% block content %}
+    <ul>
+        {% for recipe in recipes %}
+        <li><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></li>
+        {% endfor %}
     
-    </body>
-</htm1>
+    </ul>
+{% endblock %}
