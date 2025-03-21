@@ -3,7 +3,7 @@
     <head>
         <title></title>
         <header>
-           <h2>Recipe Book</h2>
+           <h2>Recipe Book || {% block title %}{% endblock %}</h2>
            {% if user.is_authenticated %}
            <form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
