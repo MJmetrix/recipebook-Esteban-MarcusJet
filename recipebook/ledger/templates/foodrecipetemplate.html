@@ -8,5 +8,12 @@ Recipe instructions
         {% for ingredient in ingredients %}
             <li>{{ ingredient.ingredient }} - {{ ingredient.quantity }}</li>
         {% endfor %}
+        {% if images %}
+            {% for image in images %}
+                <img src="{{ image.image.url }}" alt="{{ image.description }}">
+            {% endfor %}
+        {% else %}
+            <p>no image</p>
+        {% endif %}
     </ul>
 {% endblock %}

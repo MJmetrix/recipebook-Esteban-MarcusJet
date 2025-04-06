@@ -21,6 +21,7 @@ def RecipeList(request):
 def RecipeIngredientDatabase(request, num=1):
     recipe = Recipe.objects.get(id=num) 
     ingredients = RecipeIngredient.objects.filter(recipe=recipe) 
+    images = recipe.recipe.all()
 
     if recipe.author != request.user.profile:
         return redirect('/recipes/list')
@@ -31,7 +32,8 @@ def RecipeIngredientDatabase(request, num=1):
             'Name': recipe.name,
             'author': recipe.author.name,
             'ingredients':[{'ingredient': ingredient.ingredient.name, 'quantity': ingredient.quantity  }
-            for ingredient in ingredients] 
+            for ingredient in ingredients],
+            'images': images
             }
 
         return render(request, 'foodrecipetemplate.html', ctx)
