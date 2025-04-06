@@ -3,8 +3,12 @@ from .models import *
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
+class RecipeImageInline(admin.TabularInline):
+    model = RecipeImage
+    
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
+    inlines = [RecipeImageInline]
     list_filter = ('name', )
     list_display = ('author','name', 'created_on', 'updated_on')
     
@@ -23,8 +27,8 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'name', 'bio',)
     can_delete = False
 
-
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(RecipeImage)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(RecipeIngredient, RecipeIngredientAdmin)

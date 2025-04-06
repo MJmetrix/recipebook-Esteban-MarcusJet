@@ -54,4 +54,11 @@ class RecipeIngredient(models.Model):
         related_name='recipe'
     )
 
-
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to='images/', null=False)
+    description = models.TextField(max_length=255)
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='recipe'
+    )
