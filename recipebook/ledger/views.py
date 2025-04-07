@@ -7,7 +7,6 @@ from django.shortcuts import redirect
 from .forms import *
 
 
-# Create your views here.
 def Home(request):
     template = loader.get_template('recipesite.html')
     return HttpResponse(template.render())
@@ -48,6 +47,25 @@ def RecipeAdd(request):
     return render(request, 'foodrecipecreate.html', ctx)
 
 @login_required
+def RecipeImageAdd(request, num):
+    recipe = Recipe.objects.get(id=num) 
+    image_form = RecipeImageForm(request.POST, request.FILES)
+
+    if image_form.is_valid():
+        recipe_image = image_form.save(commit=False)
+        recipe_image = RecipeImage(
+            recipe=recipe,
+            description=recipe_image.description,
+            image=recipe_image.image,
+        )
+        recipe_image.save()
+
+        return redirect('food_recipe', num=recipe.id)
+
+    ctx = {"image_form":image_form, "recipe": recipe}
+    return render(request, 'foodrecipeimageadd.html', ctx)
+
+@login_required
 def RecipeList(request):
     recipes = Recipe.objects.filter(author=request.user.profile)
    
@@ -65,6 +83,7 @@ def RecipeIngredientDatabase(request, num=1):
     else:
 
         ctx = {
+            'recipe': recipe,
             'Name': recipe.name,
             'author': recipe.author.name,
             'ingredients':[{'ingredient': ingredient.ingredient.name, 'quantity': ingredient.quantity  }

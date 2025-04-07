@@ -40,3 +40,8 @@ RecipeIngredientFormSet = formset_factory(
     extra=1,
 )
 
+class RecipeImageForm(forms.ModelForm):
+    class Meta:
+        model = RecipeImage
+        fields = ['image', 'description']
+        
