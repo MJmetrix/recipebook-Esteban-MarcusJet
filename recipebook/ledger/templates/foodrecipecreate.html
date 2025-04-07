@@ -3,15 +3,21 @@
 Add New Recipe
 {% endblock %}
 {% block content %}
+    <h2>New Recipe:</h2>
     <form method="POST">
         {% csrf_token %}
         {{ recipe_form.as_p }}
+        <input type="submit" name="create_recipe" value="Add new recipe">
+    </form>
+    <h2>Add Recipe Ingredient</h2>
+    <form method="POST">
+        {% csrf_token %}
         {{ formset.management_form }}
         {% if formset %}
             {% for form in formset %}
                 {{ form.as_p  }}
             {% endfor %}
-        <input type="submit" value="Submit">
+        <input type="submit" name="add_ingredient" value="Add ingredients to recipe">
         {% else %}
          <p>no formset available</p>
          {% endif %}

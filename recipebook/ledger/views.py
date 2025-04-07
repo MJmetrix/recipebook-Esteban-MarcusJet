@@ -13,32 +13,35 @@ def Home(request):
 
 @login_required
 def RecipeAdd(request):
-    recipe_form = RecipeForm(request.POST)
+    recipe_form = RecipeForm(request.POST or None)
     formset = RecipeIngredientFormSet(request.POST or None)
 
-    if recipe_form.is_valid() and formset.is_valid():
+    if 'create_recipe' in request.POST and recipe_form.is_valid():
         recipe = recipe_form.save(commit=False)
         profile = Profile.objects.get(user=request.user)
         recipe.author = profile
         recipe.save()
 
+        return redirect('recipe_list')
+        
+    elif 'add_ingredient' in request.POST and formset.is_valid():
         for form in formset:
-            if form.is_valid():
-                ingredient = form.cleaned_data.get('ingredient')
-                new_ingredient = form.cleaned_data.get('new_ingredient')
-                quantity = form.cleaned_data.get('quantity')
-                
-                if new_ingredient:
-                    ingredient = Ingredient.objects.create(name=new_ingredient)
+            recipe = form.cleaned_data.get('recipe')
+            ingredient = form.cleaned_data.get('ingredient')
+            new_ingredient = form.cleaned_data.get('new_ingredient')
+            quantity = form.cleaned_data.get('quantity')
+            
+            if new_ingredient:
+                ingredient = Ingredient.objects.create(name=new_ingredient)
 
-                if ingredient and quantity:
-                    recipe_ingredient = form.save(commit=False)
-                    recipe_ingredient = RecipeIngredient(
-                        recipe=recipe,
-                        ingredient=ingredient,
-                        quantity=quantity
-                    )
-                    recipe_ingredient.save()
+            if ingredient and quantity:
+                recipe_ingredient = form.save(commit=False)
+                recipe_ingredient = RecipeIngredient(
+                    recipe=recipe,
+                    ingredient=ingredient,
+                    quantity=quantity
+                )
+                recipe_ingredient.save()
 
         return redirect('recipe_list')
 

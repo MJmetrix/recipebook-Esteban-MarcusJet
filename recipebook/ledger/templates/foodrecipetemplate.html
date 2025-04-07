@@ -12,9 +12,9 @@ Recipe instructions
             {% for image in images %}
                 <img src="{{ image.image.url }}" alt="{{ image.description }}">
             {% endfor %}
-        <a href="{% url 'recipe_image_add' num=recipe.id %}">add image</a>
         {% else %}
             <p>no image</p>
         {% endif %}
+        <a href="{% url 'recipe_image_add' num=recipe.id %}">add image</a>
     </ul>
 {% endblock %}

@@ -7,11 +7,15 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = ['name']
 
+    name = forms.CharField(
+        required=False,
+        max_length=50,
+        )
 
 class RecipeIngredientForm(forms.ModelForm):
     class Meta:
         model = RecipeIngredient
-        fields = ['ingredient', 'quantity']
+        fields = ['recipe','ingredient', 'quantity']
 
     ingredient = forms.ModelChoiceField(
         queryset=Ingredient.objects.all(), 
