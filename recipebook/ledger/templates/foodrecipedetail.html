@@ -1,0 +1,21 @@
+{% extends 'foodrecipe.html' %}
+{% block title %}
+Recipe instructions
+{% endblock %}
+{% block content %}
+    <h3>{{ Name }} by {{ author }}</h3>
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.ingredient }} - {{ ingredient.quantity }}</li>
+        {% endfor %}
+        {% if images %}
+            {% for image in images %}
+                <img src="{{ image.image.url }}" alt="{{ image.description }}">
+            {% endfor %}
+        {% else %}
+            <p>no image</p>
+        {% endif %}
+        <p><a href="{% url 'recipe_list' %}">return to recipe list</a></p>
+        <p><a href="{% url 'recipe_image_add' num=recipe.id %}">add image</a></p>
+    </ul>
+{% endblock %}
