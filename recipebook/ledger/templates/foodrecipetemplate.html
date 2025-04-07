@@ -15,6 +15,7 @@ Recipe instructions
         {% else %}
             <p>no image</p>
         {% endif %}
-        <a href="{% url 'recipe_image_add' num=recipe.id %}">add image</a>
+        <p><a href="{% url 'recipe_list' %}">return to recipe list</a></p>
+        <p><a href="{% url 'recipe_image_add' num=recipe.id %}">add image</a></p>
     </ul>
 {% endblock %}
