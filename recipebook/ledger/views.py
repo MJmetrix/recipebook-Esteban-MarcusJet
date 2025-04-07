@@ -23,7 +23,7 @@ def RecipeAdd(request):
         recipe.save()
 
         return redirect('recipe_list')
-        
+
     elif 'add_ingredient' in request.POST and formset.is_valid():
         for form in formset:
             recipe = form.cleaned_data.get('recipe')
@@ -72,7 +72,7 @@ def RecipeImageAdd(request, num):
 def RecipeList(request):
     recipes = Recipe.objects.filter(author=request.user.profile)
    
-    return render(request, 'recipelistsite.html', {"recipes" : recipes})
+    return render(request, 'foodrecipelist.html', {"recipes" : recipes})
 
 @login_required
 def RecipeIngredientDatabase(request, num=1):
@@ -94,4 +94,4 @@ def RecipeIngredientDatabase(request, num=1):
             'images': images
             }
 
-        return render(request, 'foodrecipetemplate.html', ctx)
+        return render(request, 'foodrecipedetail.html', ctx)
