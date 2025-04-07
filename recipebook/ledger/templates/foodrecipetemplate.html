@@ -2,6 +2,9 @@
 {% block title %}
 Recipe instructions
 {% endblock %}
+{% block head %}
+<a href="{% url 'recipe_add' %}">add recipe</a>
+{% endblock %}
 {% block content %}
     <h3>{{ Name }} by {{ author }}</h3>
     <ul>
